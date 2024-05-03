@@ -1,0 +1,130 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\images\black_hole_image.png" />
+    <None Remove="assets\images\black_hole_image_100x100.png" />
+    <None Remove="assets\images\crate.jpg" />
+    <None Remove="assets\images\skins\Amogus.png" />
+    <None Remove="assets\images\skins\Arabio.png" />
+    <None Remove="assets\images\skins\Athena.png" />
+    <None Remove="assets\images\skins\Atomic.png" />
+    <None Remove="assets\images\skins\Beer.png" />
+    <None Remove="assets\images\skins\Damed.png" />
+    <None Remove="assets\images\skins\DiamondPickaxe.png" />
+    <None Remove="assets\images\skins\DiogoElAngelica.png" />
+    <None Remove="assets\images\skins\Dragon.png" />
+    <None Remove="assets\images\skins\HeartToAmerica.png" />
+    <None Remove="assets\images\skins\HeartToGermany.png" />
+    <None Remove="assets\images\skins\HeartToSwitzerland.png" />
+    <None Remove="assets\images\skins\Lulugie.png" />
+    <None Remove="assets\images\skins\MasterBalls.png" />
+    <None Remove="assets\images\skins\Phoenix.png" />
+    <None Remove="assets\images\skins\Portal.png" />
+    <None Remove="assets\images\skins\Reaper.png" />
+    <None Remove="assets\images\skins\Scooter.png" />
+    <None Remove="assets\images\skins\Skull.png" />
+    <None Remove="assets\images\skins\TimeoMexicano.png" />
+    <None Remove="assets\images\skins\Viking.png" />
+    <None Remove="assets\images\skins\Visqueuse.png" />
+    <None Remove="assets\images\wall.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\images\black_hole_image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\black_hole_image_100x100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\crate.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Amogus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Athena.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Atomic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Beer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Damed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\DiamondPickaxe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\DiogoElAngelica.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Dragon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\HeartToAmerica.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\HeartToGermany.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\HeartToSwitzerland.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Lulugie.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Arabio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\MasterBalls.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Phoenix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Portal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Reaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Scooter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Skull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\TimeoMexicano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Viking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Visqueuse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\wall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AtomicSokoLibrary\AtomicSokoLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

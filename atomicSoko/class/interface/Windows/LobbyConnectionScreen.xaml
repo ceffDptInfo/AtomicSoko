@@ -1,0 +1,35 @@
+﻿<Window x:Class="atomicSoko.LobbyConnectionScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:atomicSoko"
+        mc:Ignorable="d"
+        Title="LobbyConnectionScreen" Height="450" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="87"/>
+            <RowDefinition Height="94*"/>
+            <RowDefinition Height="253*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="lblName" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="120" Grid.Row="1" Height="30" VerticalAlignment="Center" FontSize="15" TextChanged="lblName_TextChanged"/>
+        <Label Content="Connection to the server" HorizontalAlignment="Center" Width="278" FontSize="24" Height="55" VerticalAlignment="Center"/>
+        <Grid/>
+        <Label Content="Pseudo" HorizontalAlignment="Center" Margin="0,0,200,0" Grid.Row="1" Width="70" Height="30" VerticalAlignment="Center" FontSize="15"/>
+        <Button x:Name="btnConnection" Content="Connect" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Height="64" Width="106" FontSize="18" Click="Button_Click" Margin="0,164,0,0"/>
+        <Label x:Name="lblError" Content="" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="2.559,0.842"/>
+        <Slider x:Name="RSlider" HorizontalAlignment="Left" Margin="40,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" ValueChanged="RSlider_ValueChanged" Maximum="255" Minimum="0" SmallChange="1"/>
+        <Slider x:Name="GSlider" HorizontalAlignment="Left" Margin="40,41,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" ValueChanged="GSlider_ValueChanged" Maximum="255" Minimum="0" SmallChange="1"/>
+        <Slider x:Name="BSlider" HorizontalAlignment="Left" Margin="40,64,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" ValueChanged="BSlider_ValueChanged" Maximum="255" Minimum="0" SmallChange="1"/>
+        <Label Content="R" HorizontalAlignment="Left" Margin="10,14,0,0" Grid.Row="2" VerticalAlignment="Top" Height="23"/>
+        <Ellipse x:Name="EllipseColorPreview" HorizontalAlignment="Left" Height="75" Margin="287,10,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" Width="75" Fill="Black" MouseDown="EllipseColorPreview_MouseDown"/>
+        <Label Content="G" HorizontalAlignment="Left" Margin="10,36,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Label Content="B" HorizontalAlignment="Left" Margin="11,60,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Button x:Name="btnLogIn" Content="Login" HorizontalAlignment="Left" Margin="400,208,0,0" Grid.Row="2" VerticalAlignment="Top" Foreground="White" Background="Black" Click="BtnLogIn_Click">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Rectangle x:Name="recSkin" HorizontalAlignment="Left" Height="43" Margin="381,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="52"/>
+    </Grid>
+</Window>
