@@ -19,17 +19,34 @@
     <None Remove="assets\images\skins\Atomic.png" />
     <None Remove="assets\images\skins\Beer.png" />
     <None Remove="assets\images\skins\Damed.png" />
+    <None Remove="assets\images\skins\DarkVador.png" />
     <None Remove="assets\images\skins\DiamondPickaxe.png" />
     <None Remove="assets\images\skins\DiogoElAngelica.png" />
+    <None Remove="assets\images\skins\Discord.png" />
     <None Remove="assets\images\skins\Dragon.png" />
+    <None Remove="assets\images\skins\EyeOfCthulhu.png" />
+    <None Remove="assets\images\skins\Godzilla.png" />
+    <None Remove="assets\images\skins\Golden.png" />
+    <None Remove="assets\images\skins\Golum.png" />
     <None Remove="assets\images\skins\HeartToAmerica.png" />
     <None Remove="assets\images\skins\HeartToGermany.png" />
     <None Remove="assets\images\skins\HeartToSwitzerland.png" />
+    <None Remove="assets\images\skins\KawaiiPikachu.png" />
+    <None Remove="assets\images\skins\KennyMCWhale.png" />
+    <None Remove="assets\images\skins\LetMeSoloHer.png" />
     <None Remove="assets\images\skins\Lulugie.png" />
+    <None Remove="assets\images\skins\Marshadow.png" />
     <None Remove="assets\images\skins\MasterBalls.png" />
+    <None Remove="assets\images\skins\MewTwo.png" />
+    <None Remove="assets\images\skins\Pay2Win.png" />
     <None Remove="assets\images\skins\Phoenix.png" />
+    <None Remove="assets\images\skins\Pizza.png" />
+    <None Remove="assets\images\skins\player_left.png" />
+    <None Remove="assets\images\skins\player_right.png" />
     <None Remove="assets\images\skins\Portal.png" />
     <None Remove="assets\images\skins\Reaper.png" />
+    <None Remove="assets\images\skins\Reyna.png" />
+    <None Remove="assets\images\skins\Ronaldo.png" />
     <None Remove="assets\images\skins\Scooter.png" />
     <None Remove="assets\images\skins\Skull.png" />
     <None Remove="assets\images\skins\TimeoMexicano.png" />
@@ -63,13 +80,31 @@
     <Content Include="assets\images\skins\Damed.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\images\skins\DarkVador.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\images\skins\DiamondPickaxe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\DiogoElAngelica.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\images\skins\Discord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\images\skins\Dragon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\EyeOfCthulhu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Godzilla.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Golden.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Golum.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\HeartToAmerica.png">
@@ -81,22 +116,55 @@
     <Content Include="assets\images\skins\HeartToSwitzerland.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\images\skins\KawaiiPikachu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\KennyMCWhale.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\LetMeSoloHer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\images\skins\Lulugie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\Arabio.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\images\skins\Marshadow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\images\skins\MasterBalls.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\images\skins\MewTwo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Pay2Win.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\images\skins\Phoenix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Pizza.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\player_left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\player_right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\Portal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\Reaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Reyna.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\skins\Ronaldo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\Scooter.png">

@@ -27,18 +27,45 @@ namespace atomicSoko
 
         private void BuildScreen(List<ImageBrush> images)
         {
-            for(int i = 0; i < images.Count; i++)
+            for(int i = 0; i < 5; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition());
+                
             }
+            for(int i = 0; i < Math.Round((double)images.Count / 5); i++)
+            {
+                grid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            int Column = 0;
+            int Row = 0;
             for(int i = 0;i < images.Count; i++)
             {
                 Rectangle r = new Rectangle();
                 r.Fill = images[i];
-                Grid.SetRow(r, i);
+                Grid.SetColumn(r, Column);
+                Grid.SetRow(r, Row);
                 grid.Children.Add(r);
+                
+                if (Row == 4)
+                {
+                    Column++;
+                    Row = 0;
+                }
+                else
+                {
+                    Row++;
+                }
             }
-            grid.Height = images.Count * 128;
+            grid.Height = 5 * 128;
+            if(images.Count > 6)
+            {
+                grid.Width = (Column + 1) * 128;
+            }
+            else
+            {
+                grid.Width = 128;
+            }
+            
         }
     }
 }
