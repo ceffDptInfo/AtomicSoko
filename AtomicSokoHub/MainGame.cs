@@ -274,7 +274,7 @@ namespace AtomicSokoHub
                     currentPlayerId = "p1";
                 }
 
-                if (users[currentPlayerId].State != UserState.InLife)
+                if (users[currentPlayerId] != null && users[currentPlayerId].State != UserState.InLife)
                 {
                     ChangePlayerTurn();
                 }

@@ -23,6 +23,20 @@
             new("Skull", 600),
             new("Viking", 200),
             new("Visqueuse", 10),
+            new("DarkVador", 1),
+            new("Discord", 600),
+            new("EyeOfCthulhu", 10),
+            new("Godzilla", 10),
+            new("Golum", 10),
+            new("KawaiiPikachu", 200),
+            new("KennyMCWhale", 200),
+            new("LetMeSoloHer", 1),
+            new("Marshadow", 10),
+            new("MewTwo", 10),
+            new("Pay2Win", 200),
+            new("Pizza", 600),
+            new("Reyna", 1),
+            new("Ronaldo", 600),
         };
 
     }
