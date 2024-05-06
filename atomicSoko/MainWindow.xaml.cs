@@ -73,7 +73,7 @@ namespace atomicSoko
         private Task MainWindow_Closed(Exception? arg)
         {
             Environment.Exit(0);
-            return Task.CompletedTask;
+            return Task.CompletedTask; //ne returnera jamais
         }
         private async void Confirmation()
         {
