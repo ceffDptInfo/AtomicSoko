@@ -32,7 +32,7 @@ namespace atomicSoko
                 grid.RowDefinitions.Add(new RowDefinition());
                 
             }
-            for(int i = 0; i < Math.Round((double)images.Count / 5); i++)
+            for(int i = 0; i < Math.Round((double)images.Count / 4); i++)
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
@@ -57,7 +57,7 @@ namespace atomicSoko
                 }
             }
             grid.Height = 5 * 128;
-            if(images.Count > 6)
+            if(images.Count > 5)
             {
                 grid.Width = (Column + 1) * 128;
             }

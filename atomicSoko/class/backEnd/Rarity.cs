@@ -45,7 +45,7 @@ namespace atomicSoko
         static List<ImageBrush> Commons = new List<ImageBrush>() {HeartToAmerica, HeartToGermany, HeartToSwitzerland, Skull, Scooter, Discord, Pizza , Ronaldo };
         static List<ImageBrush> Rares = new List<ImageBrush>() {Amogus, Beer, Viking, Atomic, DiamondPickaxe, KawaiiPikachu, KennyMCWhale , Pay2Win };
         static List<ImageBrush> Legendarys = new List<ImageBrush>() {Dragon, Reaper, Visqueuse, Athena, EyeOfCthulhu, Godzilla, Golum, Marshadow , MewTwo };
-        static List<ImageBrush> Unics = new List<ImageBrush>() {Portal, Phoenix, Damed, DarkVador, LetMeSoloHer, Reyna };
+        static List<ImageBrush> Unics = new List<ImageBrush>() {Phoenix, Portal, Damed, DarkVador, LetMeSoloHer, Reyna };
 
         static public List<ImageBrush>? GetList(string type)
         {
