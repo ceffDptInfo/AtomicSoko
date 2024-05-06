@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Diagnostics;
 
-namespace AtomicSokoHub.Class
+namespace AtomicSokoHub
 {
     //ABC abc " "
     public class Model
@@ -41,9 +41,8 @@ namespace AtomicSokoHub.Class
 
         public void SelectAtom(int x, int y, string currentPlayer)
         {
-            if(!CellValueIsUpper(x, y))
+            if (!CellValueIsUpper(x, y))
             {
-
                 AddAtomSetColor(x, y, currentPlayer);
                 ResetSelection();
                 Cells[x, y].isLastSelected = true;
@@ -201,6 +200,10 @@ namespace AtomicSokoHub.Class
                 {
                     TestIfAtomsleft();
                 }
+            }
+            else
+            {
+                AtomExploded?.Invoke(null, EventArgs.Empty);
             }
 
             return explosion;

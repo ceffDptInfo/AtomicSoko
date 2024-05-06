@@ -1,7 +1,7 @@
 ﻿using AtomicSokoLibrary;
 using Microsoft.AspNetCore.SignalR;
 
-namespace AtomicSokoHub.Hubs
+namespace AtomicSokoHub
 {
     public class GameHub : Hub
     {

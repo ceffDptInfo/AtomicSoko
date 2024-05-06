@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Drawing;
 
-namespace AtomicSokoHub.Class
+namespace AtomicSokoHub
 {
     public enum UserState
     {

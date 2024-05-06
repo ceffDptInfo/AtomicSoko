@@ -1,6 +1,4 @@
-﻿using AtomicSokoHub.Class;
-using AtomicSokoHub.Hubs;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -259,24 +257,27 @@ namespace AtomicSokoHub
 
         private void ChangePlayerTurn()
         {
-            int playerTurnAsInt = 0;
-            foreach (char c in currentPlayerId)
+            if(GameIsRunning)
             {
-                int.TryParse(c.ToString(), out playerTurnAsInt);
-            }
-            playerTurnAsInt++;
-            if (playerTurnAsInt <= users.Count)
-            {
-                currentPlayerId = $"p{playerTurnAsInt}";
-            }
-            else
-            {
-                currentPlayerId = "p1";
-            }
+                int playerTurnAsInt = 0;
+                foreach (char c in currentPlayerId)
+                {
+                    int.TryParse(c.ToString(), out playerTurnAsInt);
+                }
+                playerTurnAsInt++;
+                if (playerTurnAsInt <= users.Count)
+                {
+                    currentPlayerId = $"p{playerTurnAsInt}";
+                }
+                else
+                {
+                    currentPlayerId = "p1";
+                }
 
-            if (users[currentPlayerId].State == UserState.Dead)
-            {
-                ChangePlayerTurn();
+                if (users[currentPlayerId].State != UserState.InLife)
+                {
+                    ChangePlayerTurn();
+                }
             }
         }
 
@@ -313,7 +314,6 @@ namespace AtomicSokoHub
 
         private void SetAtoms(object? sender, EventArgs e)
         {
-            Clients!.All.SendAsync("Refresh", CompressTableToString(model!.Cells));
             ChangePlayerTurn();
             SendUserTurn();
         }
@@ -460,7 +460,7 @@ namespace AtomicSokoHub
         {
             string[]? cmd = sender as string[];
 
-            if(cmd != null && cmd.Length == 2)
+            if(cmd != null && cmd.Length >= 2)
             {
                 bool isInit = true;
                 string msg = "";
@@ -512,5 +512,6 @@ namespace AtomicSokoHub
                 }
             }
         }
+
     }
 }

@@ -1,4 +1,4 @@
-using AtomicSokoHub.Hubs;
+using AtomicSokoHub;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿namespace AtomicSokoHub.Class
+﻿namespace AtomicSokoHub
 {
     public class UserModel
     {
