@@ -53,10 +53,11 @@ namespace atomicSoko
         {
             try
             {
-                connection = new HubConnectionBuilder().WithUrl("http://PC-BD52-14:5222/AtomicSokoHub").WithAutomaticReconnect().Build();
+                connection = new HubConnectionBuilder().WithUrl("http://PC-BD52-14:5222/AtomicSokoHub").Build();
                 await connection.StartAsync();
                 Confirmation();
                 ListOfConnection();
+                connection!.Closed += MainWindow_Closed;
 
             }catch (Exception e)
             {
@@ -68,6 +69,12 @@ namespace atomicSoko
         //private
 
         //connection Interact
+
+        private Task MainWindow_Closed(Exception? arg)
+        {
+            Environment.Exit(0);
+            return Task.CompletedTask;
+        }
         private async void Confirmation()
         {
             UserData userData = new UserData();
