@@ -1,6 +1,8 @@
 ﻿using atomicSoko;
 using AtomicSokoLibrary;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Windows;
@@ -41,11 +43,22 @@ namespace atomicSoko
             {
                 lblError.Content = "Name is already used choose a other Name";
             }
+            
+            if (File.Exists("assets/data/Cache.txt"))
+            {
+                var file = new StreamReader("assets/data/Cache.txt");
+                string line = file.ReadLine()!;
+                if (line != null)
+                {
+                    lblConnect.Text = line;
+                }
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PlayerName = lblName.Text;
+            SaveInCache();
             ConnectionButtonClicked?.Invoke(this, EventArgs.Empty);
         }
 
@@ -127,6 +140,18 @@ namespace atomicSoko
                 recSkin.Fill = new ImageBrush(NewUser.Skin);
             }
             listOfSkin!.Close();
+        }
+
+        private void SaveInCache()
+        {
+            if (!Directory.Exists("assets/data"))
+            {
+                Directory.CreateDirectory("assets/data");
+            }
+            using (StreamWriter sw = new StreamWriter("assets/data/Cache.txt"))
+            {
+                sw.WriteLine(lblConnect.Text);
+            }
         }
     }
 }

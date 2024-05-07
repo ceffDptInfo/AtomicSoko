@@ -12,10 +12,10 @@
             <RowDefinition Height="94*"/>
             <RowDefinition Height="253*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="lblName" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="120" Grid.Row="1" Height="30" VerticalAlignment="Center" FontSize="15" TextChanged="lblName_TextChanged"/>
+        <TextBox x:Name="lblName" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="120" Grid.Row="1" Height="30" VerticalAlignment="Top" FontSize="15" TextChanged="lblName_TextChanged" Margin="0,54,0,0"/>
         <Label Content="Connection to the server" HorizontalAlignment="Center" Width="278" FontSize="24" Height="55" VerticalAlignment="Center"/>
         <Grid/>
-        <Label Content="Pseudo" HorizontalAlignment="Center" Margin="0,0,200,0" Grid.Row="1" Width="70" Height="30" VerticalAlignment="Center" FontSize="15"/>
+        <Label Content="Pseudo" HorizontalAlignment="Left" Margin="90,54,0,0" Grid.Row="1" Width="70" Height="30" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.448,1.501"/>
         <Button x:Name="btnConnection" Content="Connect" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Height="64" Width="106" FontSize="18" Click="Button_Click" Margin="0,164,0,0"/>
         <Label x:Name="lblError" Content="" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="2.559,0.842"/>
         <Slider x:Name="RSlider" HorizontalAlignment="Left" Margin="40,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" ValueChanged="RSlider_ValueChanged" Maximum="255" Minimum="0" SmallChange="1"/>
@@ -31,5 +31,7 @@
             </Button.Effect>
         </Button>
         <Rectangle x:Name="recSkin" HorizontalAlignment="Left" Height="43" Margin="381,73,0,0" Grid.Row="2" VerticalAlignment="Top" Width="52"/>
+        <TextBox x:Name="lblConnect" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Width="120" Grid.Row="1" Height="30" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Hub IP" HorizontalAlignment="Left" Margin="90,0,0,0" Grid.Row="1" Width="70" Height="30" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.448,1.501"/>
     </Grid>
 </Window>
