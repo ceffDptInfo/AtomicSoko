@@ -39,11 +39,6 @@ namespace AtomicSokoHub
             mainGame.Disconnect(id);
         }
 
-        public override Task OnDisconnectedAsync(Exception? exception)
-        {
-            return base.OnDisconnectedAsync(exception);
-        }
-
         public void BuyCrate(string userName)
         {
             mainGame.Clients = Clients;
