@@ -39,11 +39,21 @@ namespace AtomicSokoHub
             {
                 if (users.ContainsKey(id))
                 {
+                    if (currentPlayerId == id)
+                    {
+                        ChangePlayerTurn();
+                        SendUserTurn();
+                    }
                     chatDB.PlayerLeftMsg(users[id].UserName!);
                     users.Remove(id);
+                    ChangePlayerId();
                     UpdateChat(null, EventArgs.Empty);
-                    EndGame(null, EventArgs.Empty);
                     UpdateUsersList();
+
+                    if(users.Count <= 1)
+                    {
+                        EndGame(null, EventArgs.Empty);
+                    }
                 }
             }
             
@@ -274,7 +284,7 @@ namespace AtomicSokoHub
                     currentPlayerId = "p1";
                 }
 
-                if (users[currentPlayerId] != null && users[currentPlayerId].State != UserState.InLife)
+                if (users.TryGetValue(currentPlayerId, out User? user) && user != null && users[currentPlayerId].State != UserState.InLife)
                 {
                     ChangePlayerTurn();
                 }
@@ -300,11 +310,14 @@ namespace AtomicSokoHub
 
         private void SendUserTurn()
         {
-            UserData userData = new UserData();
-            userData.Id = users[currentPlayerId].Id!;
-            userData.Name = users[currentPlayerId].UserName!;
-            userData.Color = users[currentPlayerId].Color!;
-            Clients!.All.SendAsync("SendUserTurn", userData);
+            if(users.TryGetValue(currentPlayerId, out User? user) && user != null)
+            {
+                UserData userData = new UserData();
+                userData.Id = users[currentPlayerId].Id!;
+                userData.Name = users[currentPlayerId].UserName!;
+                userData.Color = users[currentPlayerId].Color!;
+                Clients!.All.SendAsync("SendUserTurn", userData); 
+            }
         }
 
         private void RefreshAtoms(object? sender, EventArgs e)
