@@ -39,14 +39,13 @@ namespace AtomicSokoHub
             {
                 if (users.ContainsKey(id))
                 {
-                    if (currentPlayerId == id)
+                    if(id == currentPlayerId)
                     {
                         ChangePlayerTurn();
                         SendUserTurn();
                     }
                     chatDB.PlayerLeftMsg(users[id].UserName!);
                     users.Remove(id);
-                    ChangePlayerId();
                     UpdateChat(null, EventArgs.Empty);
                     UpdateUsersList();
 
@@ -269,22 +268,23 @@ namespace AtomicSokoHub
         {
             if(GameIsRunning)
             {
+                List<string> keys = users.Keys.ToList();
+
                 int playerTurnAsInt = 0;
                 foreach (char c in currentPlayerId)
                 {
                     int.TryParse(c.ToString(), out playerTurnAsInt);
                 }
-                playerTurnAsInt++;
-                if (playerTurnAsInt <= users.Count)
+                
+                if(playerTurnAsInt >= keys.Count)
                 {
-                    currentPlayerId = $"p{playerTurnAsInt}";
-                }
-                else
-                {
-                    currentPlayerId = "p1";
+                    playerTurnAsInt = 0;
                 }
 
-                if (users.TryGetValue(currentPlayerId, out User? user) && user != null && users[currentPlayerId].State != UserState.InLife)
+                currentPlayerId = keys[playerTurnAsInt];
+
+
+                if (!users.TryGetValue(currentPlayerId, out User? user) || users[currentPlayerId].State != UserState.InLife)
                 {
                     ChangePlayerTurn();
                 }
