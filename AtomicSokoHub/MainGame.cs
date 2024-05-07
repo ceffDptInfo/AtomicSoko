@@ -39,17 +39,24 @@ namespace AtomicSokoHub
             {
                 if (users.ContainsKey(id))
                 {
-                    if(id == currentPlayerId)
+                    chatDB.PlayerLeftMsg(users[id].UserName!);
+                    users[id].State = UserState.Disconnected;
+                    UpdateChat(null, EventArgs.Empty);
+                    UpdateUsersList();
+                    if (id == currentPlayerId)
                     {
                         ChangePlayerTurn();
                         SendUserTurn();
                     }
-                    chatDB.PlayerLeftMsg(users[id].UserName!);
-                    users.Remove(id);
-                    UpdateChat(null, EventArgs.Empty);
-                    UpdateUsersList();
-
-                    if(users.Count <= 1)
+                    int nbConnected = 0;
+                    foreach(User user in users.Values)
+                    {
+                        if(user.State != UserState.Disconnected)
+                        {
+                            nbConnected++;
+                        }
+                    }
+                    if (nbConnected <= 1)
                     {
                         EndGame(null, EventArgs.Empty);
                     }
@@ -264,6 +271,23 @@ namespace AtomicSokoHub
 
         //Private Functions
 
+        private void RemoveDisconnectedUsers()
+        {
+            List<string> usersToRemove = new List<string>();
+            foreach(User user in users.Values)
+            {
+                if(user.State == UserState.Disconnected)
+                {
+                    usersToRemove.Add(user.Id!);
+                }
+            }
+
+            foreach(string user in usersToRemove)
+            {
+                users.Remove(user);
+            }
+        }
+
         private void ChangePlayerTurn()
         {
             if(GameIsRunning)
@@ -403,9 +427,13 @@ namespace AtomicSokoHub
             foreach (User user in users.Values)
             {
                 user.IsReady = false;
-                user.State = UserState.Spectator;
+                if(user.State != UserState.Disconnected)
+                {
+                    user.State = UserState.Spectator;
+                }
             }
 
+            RemoveDisconnectedUsers();
             UpdateUsersList();
             Clients!.All.SendAsync("EndGame");
         }

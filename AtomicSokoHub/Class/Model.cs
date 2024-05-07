@@ -273,11 +273,6 @@ namespace AtomicSokoHub
                 }
             }
 
-            foreach(string user in deadUsers)
-            {
-                MainGame.Instance.users[user].State = UserState.Dead;
-            }
-
             if (usersInLife.Count == 1)
             {
                 AtomsDestroyed?.Invoke(usersInLife.First<string>(), EventArgs.Empty);

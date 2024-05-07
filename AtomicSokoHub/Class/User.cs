@@ -6,6 +6,7 @@ namespace AtomicSokoHub
     public enum UserState
     {
         Spectator,
+        Disconnected,
         InLife,
         Dead,
     }
