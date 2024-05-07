@@ -40,7 +40,7 @@ namespace AtomicSokoHub
                 if (users.ContainsKey(id))
                 {
                     chatDB.PlayerLeftMsg(users[id].UserName!);
-                    users[id].State = UserState.Disconnected;
+                    users[id].EmptyUser();
                     UpdateChat(null, EventArgs.Empty);
                     UpdateUsersList();
                     if (id == currentPlayerId)
@@ -51,7 +51,7 @@ namespace AtomicSokoHub
                     int nbConnected = 0;
                     foreach(User user in users.Values)
                     {
-                        if(user.State != UserState.Disconnected)
+                        if(user.IsConnected)
                         {
                             nbConnected++;
                         }
@@ -276,7 +276,7 @@ namespace AtomicSokoHub
             List<string> usersToRemove = new List<string>();
             foreach(User user in users.Values)
             {
-                if(user.State == UserState.Disconnected)
+                if(!user.IsConnected)
                 {
                     usersToRemove.Add(user.Id!);
                 }
@@ -308,7 +308,7 @@ namespace AtomicSokoHub
                 currentPlayerId = keys[playerTurnAsInt];
 
 
-                if (!users.TryGetValue(currentPlayerId, out User? user) || users[currentPlayerId].State != UserState.InLife)
+                if (!users.TryGetValue(currentPlayerId, out User? user) || users[currentPlayerId].State != UserState.InLife || !users[currentPlayerId].IsConnected)
                 {
                     ChangePlayerTurn();
                 }
@@ -321,7 +321,6 @@ namespace AtomicSokoHub
             model!.Atomsetted += SetAtoms;
             model!.AtomExploded += RefreshAtoms;
             model!.AtomsDestroyed += EndGame;
-
 
             GameIsRunning = true;
             currentPlayerId = "p0";
@@ -426,11 +425,7 @@ namespace AtomicSokoHub
             GameIsRunning = false;
             foreach (User user in users.Values)
             {
-                user.IsReady = false;
-                if(user.State != UserState.Disconnected)
-                {
-                    user.State = UserState.Spectator;
-                }
+                user.State = UserState.Spectator;
             }
 
             RemoveDisconnectedUsers();
