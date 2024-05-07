@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="assets\data\Cache.txt" />
+    <None Remove="App.config" />
     <None Remove="assets\images\black_hole_image.png" />
     <None Remove="assets\images\black_hole_image_100x100.png" />
     <None Remove="assets\images\crate.jpg" />
@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="assets\data\Cache.txt">
+    <Content Include="App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\black_hole_image.png">

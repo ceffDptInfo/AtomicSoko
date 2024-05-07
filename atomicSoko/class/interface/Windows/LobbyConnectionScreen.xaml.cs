@@ -1,6 +1,7 @@
 ﻿using atomicSoko;
 using AtomicSokoLibrary;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -43,15 +44,10 @@ namespace atomicSoko
             {
                 lblError.Content = "Name is already used choose a other Name";
             }
-            
-            if (File.Exists("assets/data/Cache.txt"))
+            string? HubIP = ConfigurationManager.AppSettings.Get("HubIP");
+            if(HubIP != null)
             {
-                var file = new StreamReader("assets/data/Cache.txt");
-                string line = file.ReadLine()!;
-                if (line != null)
-                {
-                    lblConnect.Text = line;
-                }
+                lblConnect.Text = HubIP;
             }
         }
 
@@ -144,14 +140,11 @@ namespace atomicSoko
 
         private void SaveInCache()
         {
-            if (!Directory.Exists("assets/data"))
-            {
-                Directory.CreateDirectory("assets/data");
-            }
-            using (StreamWriter sw = new StreamWriter("assets/data/Cache.txt"))
-            {
-                sw.WriteLine(lblConnect.Text);
-            }
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            configuration.AppSettings.Settings["HubIP"].Value = lblConnect.Text;
+            configuration.Save();
+
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }

@@ -178,6 +178,7 @@ namespace atomicSoko
                 {
                     lblWhoHasTheTurn.Content = $"Turn of {user.Name}";
                     lblWhoHasTheTurn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(user.Color));
+                    Debug.WriteLine(User.Id);
                 });
                 
             });
@@ -197,6 +198,10 @@ namespace atomicSoko
             {
                 User u = new User();
                 u.UserName = userData.Name;
+                if(u.UserName == User.UserName)
+                {
+                    User.Id = userData.Id;
+                }
                 u.Color = (Color)ColorConverter.ConvertFromString(userData.Color);
                 u.Id = userData.Id;
                 if(userData.Skin != null)
