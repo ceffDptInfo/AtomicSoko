@@ -35,6 +35,7 @@ namespace atomicSoko
 
         bool firstMessages = false;
         bool isReady = false;
+        string IPHub = "";
 
         List<string> chatText = new List<string>();
         
@@ -53,7 +54,7 @@ namespace atomicSoko
         {
             try
             {
-                connection = new HubConnectionBuilder().WithUrl("http://PC-BD52-14:5222/AtomicSokoHub").Build();
+                connection = new HubConnectionBuilder().WithUrl($"http://{IPHub}:5222/AtomicSokoHub").Build();
                 await connection.StartAsync();
                 Confirmation();
                 ListOfConnection();
@@ -177,6 +178,7 @@ namespace atomicSoko
                 {
                     lblWhoHasTheTurn.Content = $"Turn of {user.Name}";
                     lblWhoHasTheTurn.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(user.Color));
+                    Debug.WriteLine(User.Id);
                 });
                 
             });
@@ -196,6 +198,10 @@ namespace atomicSoko
             {
                 User u = new User();
                 u.UserName = userData.Name;
+                if(u.UserName == User.UserName)
+                {
+                    User.Id = userData.Id;
+                }
                 u.Color = (Color)ColorConverter.ConvertFromString(userData.Color);
                 u.Id = userData.Id;
                 if(userData.Skin != null)
@@ -286,6 +292,7 @@ namespace atomicSoko
         private void Lcs_ConnectionButtonClicked(object? sender, EventArgs e)
         {
             LobbyConnectionScreen lcs = (LobbyConnectionScreen)sender!;
+            IPHub = lcs.lblConnect.Text;
             ConnectToHub();
             this.User.UserName = lcs.PlayerName;
             this.User.Color = lcs.MediaColor;

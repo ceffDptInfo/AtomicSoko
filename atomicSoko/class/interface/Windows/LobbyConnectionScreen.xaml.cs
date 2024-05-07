@@ -1,6 +1,9 @@
 ﻿using atomicSoko;
 using AtomicSokoLibrary;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Windows;
@@ -41,11 +44,17 @@ namespace atomicSoko
             {
                 lblError.Content = "Name is already used choose a other Name";
             }
+            string? HubIP = ConfigurationManager.AppSettings.Get("HubIP");
+            if(HubIP != null)
+            {
+                lblConnect.Text = HubIP;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PlayerName = lblName.Text;
+            SaveInCache();
             ConnectionButtonClicked?.Invoke(this, EventArgs.Empty);
         }
 
@@ -127,6 +136,15 @@ namespace atomicSoko
                 recSkin.Fill = new ImageBrush(NewUser.Skin);
             }
             listOfSkin!.Close();
+        }
+
+        private void SaveInCache()
+        {
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            configuration.AppSettings.Settings["HubIP"].Value = lblConnect.Text;
+            configuration.Save();
+
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }
