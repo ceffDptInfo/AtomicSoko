@@ -129,6 +129,7 @@ namespace AtomicSokoHub
                     foreach (User user in users.Values)
                     {
                         user.State = UserState.InLife;
+                        user.IsReady = false;
                     }
 
                     LaunchGame();
