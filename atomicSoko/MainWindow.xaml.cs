@@ -301,6 +301,8 @@ namespace atomicSoko
                 BtnShop.IsEnabled = true;
             }
             lcs.Close();
+            GameAudioPlayer.Instance.SelectAudio();
+            BtnSoundOnOff.Background = GameAudioPlayer.Instance.SoundOptionIcon;
         }
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)
@@ -360,6 +362,12 @@ namespace atomicSoko
         {
             Shop shop = new Shop(User, connection!);
             shop.Show();
+        }
+
+        private void BtnSoundOnOffClick(object sender, RoutedEventArgs e)
+        {
+            GameAudioPlayer.Instance.ToggleSound();
+            BtnSoundOnOff.Background = GameAudioPlayer.Instance.SoundOptionIcon;
         }
     }
 }

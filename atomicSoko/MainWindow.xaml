@@ -44,7 +44,9 @@
             </Grid>
 
         </Grid>
-        <Button x:Name="BtnShop" Content="Shop" HorizontalAlignment="Left" Margin="1372,10,0,0" VerticalAlignment="Top" Height="35" Width="74" IsEnabled="False" Click="BtnShop_Click"/>
+        <Button x:Name="BtnShop" Content="Shop" HorizontalAlignment="Right" Margin="0,0,40,0" VerticalAlignment="Center" Height="35" Width="74" IsEnabled="False" Click="BtnShop_Click"/>
+        <Button x:Name="BtnSoundOnOff" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="30" Margin="0, 0, 5, 0" Click="BtnSoundOnOffClick">
+        </Button>
 
     </Grid>
 </Window>

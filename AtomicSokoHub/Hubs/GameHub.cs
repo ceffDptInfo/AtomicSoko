@@ -44,5 +44,10 @@ namespace AtomicSokoHub
             mainGame.Clients = Clients;
             mainGame.TestAndBuyCrate(userName);
         }
+
+        //public override Task OnDisconnectedAsync(Exception? exception)
+        //{
+        //    return base.OnDisconnectedAsync(exception);
+        //}
     }
 }
