@@ -301,7 +301,6 @@ namespace atomicSoko
                 BtnShop.IsEnabled = true;
             }
             lcs.Close();
-            GameAudioPlayer.Instance.SelectAudio();
             BtnSoundOnOff.Background = GameAudioPlayer.Instance.SoundOptionIcon;
         }
 

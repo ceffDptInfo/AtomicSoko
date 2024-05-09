@@ -22,18 +22,20 @@ namespace atomicSoko
         private SoundPlayer soundPlayer = new SoundPlayer();
         private ImageBrush SoundOn = new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/assets/images/icons/SoundOn.png")));
         private ImageBrush SoundOff = new ImageBrush(new BitmapImage(new Uri($"pack://application:,,,/assets/images/icons/SoundOff.png")));
-
+        private Random rnd = new Random();
+        private List<string> audioNames = new List<string>() {"MainThemeSoundTrack", "PeaceFulJourneyTheme"};
         private GameAudioPlayer()
         {
             SoundOptionIcon = SoundOff;
         }
 
 
-        public void SelectAudio()
+        private void SelectAudio()
         {
             try
             {
-                soundPlayer.SoundLocation = "assets/Audio/Themes/ThemeSoundTrack.wav";
+                int index = rnd.Next(audioNames.Count);
+                soundPlayer.SoundLocation = $"assets/Audio/Themes/{audioNames[index]}.wav";
                 soundPlayer.Load();
             }catch (Exception ex)
             {
@@ -52,6 +54,7 @@ namespace atomicSoko
             }
             else
             {
+                SelectAudio();
                 StartCurrentAudio();
                 SoundOptionIcon = SoundOn;
             }

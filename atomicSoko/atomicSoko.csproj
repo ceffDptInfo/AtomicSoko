@@ -208,7 +208,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="assets\Audio\Themes\ThemeSoundTrack.wav">
+    <None Update="assets\Audio\Themes\MainThemeSoundTrack.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\Audio\Themes\PeaceFulJourneyTheme.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
