@@ -229,6 +229,12 @@ namespace atomicSoko
                     return new BitmapImage(new Uri($"pack://application:,,,/assets/images/CashDoubler.png"));
                 case PowerUps.NeutralNuke:
                     return new BitmapImage(new Uri($"pack://application:,,,/assets/images/NeutralNuke.png"));
+                case PowerUps.Angelica:
+                    return new BitmapImage(new Uri("pack://application:,,,/assets/images/Angelica.png"));
+                case PowerUps.ElJutos:
+                    return new BitmapImage(new Uri("pack://application:,,,/assets/images/ElJutos.png"));
+                case PowerUps.Topico:
+                    return new BitmapImage(new Uri("pack://application:,,,/assets/images/Topico.png"));
                 default:
                     return new BitmapImage(new Uri($"pack://application:,,,/assets/images/None.png"));
             }
@@ -397,6 +403,12 @@ namespace atomicSoko
         {
             GameAudioPlayer.Instance.ToggleSound();
             BtnSoundOnOff.Background = GameAudioPlayer.Instance.SoundOptionIcon;
+        }
+
+        private void PowerUpImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PowerUpDescription PUD = new PowerUpDescription(User.PowerUp);
+            PUD.Show();
         }
     }
 }

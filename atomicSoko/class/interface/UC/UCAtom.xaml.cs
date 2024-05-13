@@ -70,6 +70,15 @@ namespace atomicSoko
             }
             if (chars.Length == 3)
             {
+                if (chars[2] == "#")
+                {
+                    LinearGradientBrush gbBackGround = new LinearGradientBrush();
+                    gbBackGround.StartPoint = new Point(0, 0);
+                    gbBackGround.EndPoint = new Point(1, 1);
+                    gbBackGround.GradientStops.Add(new GradientStop(Colors.Aqua, 0.0));
+                    gbBackGround.GradientStops.Add(new GradientStop(Colors.DarkBlue, 1.1));
+                    UCRectangle.Fill = gbBackGround;
+                }
                 LinearGradientBrush gradientBrush = new LinearGradientBrush();
                 gradientBrush.StartPoint = new Point(0, 0);
                 gradientBrush.EndPoint = new Point(1, 1);
@@ -80,6 +89,7 @@ namespace atomicSoko
             else
             {
                 UCRectangle.Stroke = new SolidColorBrush(Colors.Black);
+                UCRectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF645D79"));
             }
 
         }
