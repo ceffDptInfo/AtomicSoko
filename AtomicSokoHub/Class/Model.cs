@@ -17,6 +17,7 @@ namespace AtomicSokoHub
 
         private bool enemyCellsLeft = true;
         private Random rnd = new Random();
+        private List<Cell> angelicaCells = new List<Cell>();
         public Model(int width, int height)
         {
 
@@ -42,11 +43,11 @@ namespace AtomicSokoHub
 
         public void SelectAtom(int x, int y, string currentPlayer)
         {
-            if (!CellValueIsUpper(x, y))
+            if (!CellValueIsUpper(x, y) && Cells[x, y].Buff != '#')
             {
                 AddAtomSetColor(x, y, currentPlayer);
                 ResetSelection();
-                Cells[x, y].isLastSelected = true;
+                Cells[x, y].Buff = '-';
                 AtomicAlgorithm(currentPlayer);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
             }
@@ -89,6 +90,56 @@ namespace AtomicSokoHub
             }
         }
 
+        public void SetAngelica(int x, int y, int round)
+        {
+            Cell cell = Cells[x, y];
+
+            if(cell.Value != ' ' && !CellValueIsUpper(x, y))
+            {
+                cell.Buff = '#';
+                cell.Round = round;
+                angelicaCells.Add(cell);
+                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                Atomsetted?.Invoke(this, EventArgs.Empty);
+                AtomExploded?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void SetElJutos(int x, int y, string id)
+        {
+            Cell cell = Cells[x, y];
+
+            if (cell.Value == 'A')
+            {
+                List<Cell> neighbors = GetNeighbors(x, y);
+                foreach(Cell neighbor in neighbors)
+                {
+                    AddAtomSetColor(neighbor.X, neighbor.Y, id);
+                    AtomicAlgorithm(id);
+                }
+                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                Atomsetted?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void SetTopico(string id)
+        {
+            foreach(Cell cell in Cells)
+            {
+                int x = cell.X;
+                int y = cell.Y;
+                if(x == 0 || y == 0 || x == Width - 1 || y == Height - 1)
+                {
+                    cell.Value = ' ';
+                    cell.Player = ' ';
+                    AtomExploded?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            TestIfAtomsleft();
+            PowerUpUsed?.Invoke(this, EventArgs.Empty);
+            Atomsetted?.Invoke(this, EventArgs.Empty);
+        }
+
         public bool CheckIfCellBelongsToPlayer(int x, int y, string currentPlayer)
         {
             bool isBelongingToPlayer = false;
@@ -99,6 +150,27 @@ namespace AtomicSokoHub
             }
 
             return isBelongingToPlayer;
+        }
+
+        public void AngelicaRoundTester(int round)
+        {
+            List<Cell> delete = new List<Cell>();
+            foreach (Cell cell in angelicaCells)
+            {
+                if (round - cell.Round == 3)
+                {
+                    cell.Round = 0;
+                    cell.Buff = ' ';
+                    delete.Add(cell);
+                }
+            }
+            if (delete.Count > 0)
+            {
+                foreach (Cell cell in delete)
+                {
+                    angelicaCells.Remove(cell);
+                }
+            }
         }
 
         private void GenerateSpecialCells()
@@ -193,7 +265,10 @@ namespace AtomicSokoHub
         {
             foreach (var cell in Cells)
             {
-                cell.isLastSelected = false;
+                if(cell.Buff == '-')
+                {
+                    cell.Buff = ' ';
+                }
             }
         }
 
@@ -253,8 +328,11 @@ namespace AtomicSokoHub
                 }
                 foreach (Cell neighbor in neighbors)
                 {
-                    AddAtomSetColor(neighbor.X, neighbor.Y, currentPlayer);
-                    AtomExploded?.Invoke(this, EventArgs.Empty);
+                    if(neighbor.Buff != '#')
+                    {
+                        AddAtomSetColor(neighbor.X, neighbor.Y, currentPlayer);
+                        AtomExploded?.Invoke(this, EventArgs.Empty);
+                    }
                 }
                 if (enemyCellsLeft)
                 {

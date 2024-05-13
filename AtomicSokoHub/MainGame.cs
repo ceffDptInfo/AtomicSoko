@@ -13,14 +13,14 @@ namespace AtomicSokoHub
         public int Height { get; set; } = 8;
         public bool GameIsRunning { get; set; } = false;
         public IHubCallerClients? Clients { get; set; }
+        public int Round { get; set; } = 0;
 
         public static MainGame Instance = new MainGame();
         public Model? model;
         public ChatDB chatDB = new();
         public Dictionary<string, User> users = new Dictionary<string, User>();
+        public string currentPlayerId = "p0";
 
-        private bool powerUpsActivated = false;
-        private string currentPlayerId = "p0";
         private AtomicConsole console = new();
         private Random rnd = new Random();
 
@@ -280,7 +280,7 @@ namespace AtomicSokoHub
 
         public void ControlAndUsePowerUp(int x, int y, string id)
         {
-            if(id == currentPlayerId && powerUpsActivated)
+            if(id == currentPlayerId && Round > 1)
             {
                 switch (users[id].PowerUp)
                 {
@@ -288,6 +288,9 @@ namespace AtomicSokoHub
                     case PowerUps.WallDestroyer: model!.WallDestroyer(x, y); break;
                     case PowerUps.CashDoubler: CashDoubler(id); break;
                     case PowerUps.NeutralNuke: model!.PlantNeutralNuke(x, y); break;
+                    case PowerUps.Angelica: model!.SetAngelica(x, y, Round); break;
+                    case PowerUps.ElJutos: model!.SetElJutos(x, y, id); break;
+                    case PowerUps.Topico: model!.SetTopico(id); break;
                 }
             }
         }
@@ -320,8 +323,9 @@ namespace AtomicSokoHub
 
         private void ChangePlayerTurn()
         {
-            if(GameIsRunning)
+            if(GameIsRunning && TestIfUserInLifeLeft())
             {
+
                 List<string> keys = users.Keys.ToList();
 
                 int playerTurnAsInt = 0;
@@ -333,7 +337,7 @@ namespace AtomicSokoHub
                 if(playerTurnAsInt >= keys.Count)
                 {
                     playerTurnAsInt = 0;
-                    powerUpsActivated = true;
+                    NewRoundProcess();
                 }
 
                 currentPlayerId = keys[playerTurnAsInt];
@@ -346,6 +350,17 @@ namespace AtomicSokoHub
             }
         }
 
+        private void NewRoundProcess()
+        {
+            Round++;
+            if (Round % 10 == 0)
+            {
+                SetPowerUp();
+            }
+            model!.AngelicaRoundTester(Round);
+            RefreshAtoms(null, EventArgs.Empty);
+        }
+
         private void LaunchGame()
         {
             model = new Model(Width, Height);
@@ -355,7 +370,7 @@ namespace AtomicSokoHub
             model!.PowerUpUsed += PowerUpUsed;
 
             GameIsRunning = true;
-            powerUpsActivated = false;
+            Round = 0;
             currentPlayerId = "p0";
 
             SetPowerUp();
@@ -379,9 +394,26 @@ namespace AtomicSokoHub
             
             foreach(User user in users.Values)
             {
-                PowerUps p = powerUps[rnd.Next(powerUps.Count - 1)];
-                user.PowerUp = p;
+                if(user.PowerUp == PowerUps.None)
+                {
+                    PowerUps p = powerUps[rnd.Next(powerUps.Count - 1)];
+                    user.PowerUp = p;
+                }
             }
+            UpdateUsersList();
+        }
+
+        private bool TestIfUserInLifeLeft()
+        {
+            bool usersLeft = false;
+            foreach(User user in users.Values)
+            {
+                if(user.State == UserState.InLife)
+                {
+                    usersLeft = true;
+                }
+            }
+            return usersLeft;
         }
 
         private void SendUserTurn()
@@ -424,9 +456,9 @@ namespace AtomicSokoHub
                 {
                     string str = "";
 
-                    if (table[j, i].isLastSelected)
+                    if (table[j, i].Buff != ' ')
                     {
-                        str = $"{table[j, i].Player},{table[j, i].Value},_;";
+                        str = $"{table[j, i].Player},{table[j, i].Value},{table[j, i].Buff};";
                     }
                     else
                     {

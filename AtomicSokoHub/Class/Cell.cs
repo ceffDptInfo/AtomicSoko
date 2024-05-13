@@ -6,6 +6,7 @@
         public int Y { get; set; }
         public char Value { get; set; }
         public char Player { get; set; } = ' ';
-        public bool isLastSelected { get; set; } = false;
+        public char Buff { get; set; } = ' ';
+        public int Round { get; set; } = 0;
     }
 }
