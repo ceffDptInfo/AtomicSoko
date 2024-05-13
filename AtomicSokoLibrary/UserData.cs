@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace AtomicSokoLibrary
 {
+
+    public enum PowerUps
+    {
+        CellThief,
+        WallDestroyer,
+        CashDoubler,
+        NeutralNuke,
+    }
+
     public class UserData
     {
         public string Color { get; set; } = string.Empty;
@@ -20,6 +29,8 @@ namespace AtomicSokoLibrary
         public bool Admin { get; set; } = false;
 
         public Int64 Cash { get; set; } = 0;
+
+        public PowerUps? PowerUp { get; set; }
 
     }
 }
