@@ -201,14 +201,36 @@ namespace atomicSoko
                 if(u.UserName == User.UserName)
                 {
                     User.Id = userData.Id;
+                    User.PowerUp = userData.PowerUp;
+                    PowerUpImage.Source = ReturnImagePowerUp(User.PowerUp);
                 }
-                u.Color = (Color)ColorConverter.ConvertFromString(userData.Color);
-                u.Id = userData.Id;
+                if(u.UserName != "")
+                {
+                    u.Color = (Color)ColorConverter.ConvertFromString(userData.Color);
+                    u.Id = userData.Id;
+                }
                 if(userData.Skin != null)
                 {
                     u.SetSkin(userData.Skin);
                 }
                 users.Add(u);
+            }
+        }
+
+        private BitmapImage ReturnImagePowerUp(PowerUps p)
+        {
+            switch (p)
+            {
+                case PowerUps.CellThief:
+                    return new BitmapImage(new Uri($"pack://application:,,,/assets/images/CellThief.png"));
+                case PowerUps.WallDestroyer:
+                    return new BitmapImage(new Uri($"pack://application:,,,/assets/images/WallDestroyer.png"));
+                case PowerUps.CashDoubler:
+                    return new BitmapImage(new Uri($"pack://application:,,,/assets/images/CashDoubler.png"));
+                case PowerUps.NeutralNuke:
+                    return new BitmapImage(new Uri($"pack://application:,,,/assets/images/NeutralNuke.png"));
+                default:
+                    return new BitmapImage(new Uri($"pack://application:,,,/assets/images/None.png"));
             }
         }
 
@@ -257,6 +279,7 @@ namespace atomicSoko
                     Grid.SetRow(atom, x);
                     UCGrid[x, y] = atom;
                     atom.MouseLeftButtonDown += Atom_MouseLeftButtonDown;
+                    atom.MouseRightButtonDown += Atom_MouseRightButtonDown;
                     GrdDisplay.Children.Add(atom);
                 }
             }
@@ -302,6 +325,13 @@ namespace atomicSoko
             }
             lcs.Close();
             BtnSoundOnOff.Background = GameAudioPlayer.Instance.SoundOptionIcon;
+        }
+        private async void Atom_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UCAtom atom = (UCAtom)sender;
+            int x = Grid.GetRow(atom);
+            int y = Grid.GetColumn(atom);
+            await connection!.InvokeAsync("PowerUpHasBeenDeploided", x, y, User.Id);
         }
 
         private async void btnStart_Click(object sender, RoutedEventArgs e)

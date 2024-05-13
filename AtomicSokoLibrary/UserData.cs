@@ -14,6 +14,7 @@ namespace AtomicSokoLibrary
         WallDestroyer,
         CashDoubler,
         NeutralNuke,
+        None,
     }
 
     public class UserData
@@ -30,7 +31,7 @@ namespace AtomicSokoLibrary
 
         public Int64 Cash { get; set; } = 0;
 
-        public PowerUps? PowerUp { get; set; }
+        public PowerUps PowerUp { get; set; } = PowerUps.None;
 
     }
 }

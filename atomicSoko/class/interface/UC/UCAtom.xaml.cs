@@ -31,12 +31,20 @@ namespace atomicSoko
             string[] chars = cell.Split(',');
             HidAll();
             User u = new User();
-            foreach (User user in users)
+            if (cell[0] == '0')
             {
-                if ($"p{cell[0]}" == user.Id)
+                color = new SolidColorBrush(Colors.White);
+                Image = new BitmapImage(new Uri($"pack://application:,,,/assets/images/NeutralNuke.png"));
+            }
+            else
+            {
+                foreach (User user in users)
                 {
-                    color = new SolidColorBrush(user.Color);
-                    Image = user.Skin;
+                    if ($"p{cell[0]}" == user.Id)
+                    {
+                        color = new SolidColorBrush(user.Color);
+                        Image = user.Skin;
+                    }
                 }
             }
             switch (chars[1])

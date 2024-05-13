@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using AtomicSokoLibrary;
 
 namespace atomicSoko 
 {
@@ -23,6 +24,8 @@ namespace atomicSoko
         public string? SkinName { get; set; }
 
         public bool Admin { get; set; } = false;
+
+        public PowerUps PowerUp { get; set; } = PowerUps.None;
 
         public User() { }
         public User(UserModel model)
