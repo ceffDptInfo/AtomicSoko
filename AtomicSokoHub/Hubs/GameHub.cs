@@ -45,6 +45,12 @@ namespace AtomicSokoHub
             mainGame.TestAndBuyCrate(userName);
         }
 
+        public void PowerUpHasBeenDeploided(int x, int y, string id)
+        {
+            mainGame.Clients = Clients;
+            mainGame.ControlAndUsePowerUp(x, y, id);
+        }
+
         //public override Task OnDisconnectedAsync(Exception? exception)
         //{
         //    return base.OnDisconnectedAsync(exception);

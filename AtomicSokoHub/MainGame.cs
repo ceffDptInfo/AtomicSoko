@@ -19,6 +19,7 @@ namespace AtomicSokoHub
         public ChatDB chatDB = new();
         public Dictionary<string, User> users = new Dictionary<string, User>();
 
+        private bool powerUpsActivated = false;
         private string currentPlayerId = "p0";
         private AtomicConsole console = new();
         private Random rnd = new Random();
@@ -99,12 +100,15 @@ namespace AtomicSokoHub
                 userData.Name = user.UserName!;
                 userData.Color = user.Color!;
                 userData.Skin = user.Skin!;
+                userData.PowerUp = user.PowerUp;
                 userDatas.Add(userData);
             }
             foreach (User user in users.Values)
             {
-                user.Proxy!.SendAsync("SendUserNameList", userDatas);
-
+                if (user.IsConnected)
+                {
+                    user.Proxy!.SendAsync("SendUserNameList", userDatas);
+                }
             }
         }
 
@@ -130,6 +134,7 @@ namespace AtomicSokoHub
                     {
                         user.State = UserState.InLife;
                         user.IsReady = false;
+                        user.DoubleCash = false;
                     }
 
                     LaunchGame();
@@ -154,7 +159,10 @@ namespace AtomicSokoHub
         {
             foreach(User user in users.Values)
             {
-                user.Proxy!.SendAsync("GetNewListOfMessages", chatDB.Chats);
+                if (user.IsConnected)
+                {
+                    user.Proxy!.SendAsync("GetNewListOfMessages", chatDB.Chats);
+                }
             }
         }
 
@@ -270,7 +278,28 @@ namespace AtomicSokoHub
             }
         }
 
+        public void ControlAndUsePowerUp(int x, int y, string id)
+        {
+            if(id == currentPlayerId && powerUpsActivated)
+            {
+                switch (users[id].PowerUp)
+                {
+                    case PowerUps.CellThief: model!.CellThief(x, y, id); break;
+                    case PowerUps.WallDestroyer: model!.WallDestroyer(x, y); break;
+                    case PowerUps.CashDoubler: CashDoubler(id); break;
+                    case PowerUps.NeutralNuke: model!.PlantNeutralNuke(x, y); break;
+                }
+            }
+        }
+
         //Private Functions
+
+        private void CashDoubler(string id)
+        {
+            users[id].DoubleCash = true;
+            PowerUpUsed(null, EventArgs.Empty);
+            SetAtoms(null, EventArgs.Empty);
+        }
 
         private void RemoveDisconnectedUsers()
         {
@@ -304,6 +333,7 @@ namespace AtomicSokoHub
                 if(playerTurnAsInt >= keys.Count)
                 {
                     playerTurnAsInt = 0;
+                    powerUpsActivated = true;
                 }
 
                 currentPlayerId = keys[playerTurnAsInt];
@@ -322,14 +352,36 @@ namespace AtomicSokoHub
             model!.Atomsetted += SetAtoms;
             model!.AtomExploded += RefreshAtoms;
             model!.AtomsDestroyed += EndGame;
+            model!.PowerUpUsed += PowerUpUsed;
 
             GameIsRunning = true;
+            powerUpsActivated = false;
             currentPlayerId = "p0";
+
+            SetPowerUp();
 
             Clients!.All.SendAsync("GameInisialized");
             RefreshAtoms(null, EventArgs.Empty);
             ChangePlayerTurn();
+            UpdateUsersList();
             SendUserTurn();
+        }
+
+        private void PowerUpUsed(object? sender, EventArgs e)
+        {
+            users[currentPlayerId].PowerUp = PowerUps.None;
+            UpdateUsersList();
+        }
+
+        private void SetPowerUp()
+        {
+            List<PowerUps> powerUps = Enum.GetValues(typeof(PowerUps)).Cast<PowerUps>().ToList();
+            
+            foreach(User user in users.Values)
+            {
+                PowerUps p = powerUps[rnd.Next(powerUps.Count - 1)];
+                user.PowerUp = p;
+            }
         }
 
         private void SendUserTurn()
@@ -340,7 +392,14 @@ namespace AtomicSokoHub
                 userData.Id = users[currentPlayerId].Id!;
                 userData.Name = users[currentPlayerId].UserName!;
                 userData.Color = users[currentPlayerId].Color!;
-                Clients!.All.SendAsync("SendUserTurn", userData); 
+
+                foreach(User u in users.Values)
+                {
+                    if (u.IsConnected)
+                    {
+                        u.Proxy!.SendAsync("SendUserTurn", userData);
+                    }
+                }
             }
         }
 
@@ -385,18 +444,38 @@ namespace AtomicSokoHub
         private void WinnerReward(string playerId)
         {
             int nbPlayer = 0;
+            List<User> hasCashDoubler = new List<User>();
             foreach(User user in users.Values)
             {
                 if(user.State == UserState.Dead || user.State == UserState.InLife)
                 {
                     nbPlayer++;
                 }
+
+                if(user.PowerUp == PowerUps.CashDoubler)
+                {
+                    hasCashDoubler.Add(user);
+                }
             }
 
             Int64 cash = rnd.Next((nbPlayer * 10) / 2, nbPlayer * 10);
 
-            users[playerId].Cash = cash;
+            if (users[playerId].DoubleCash)
+            {
+                users[playerId].Cash = cash * 2;
+            }
+            else
+            {
+                users[playerId].Cash = cash;
+            }
+            
             Repository.Instance.UpdateUserCash(users[playerId].UserName!, users[playerId].Cash);
+
+            foreach (User u in hasCashDoubler)
+            {
+                u.Cash = cash;
+                Repository.Instance.UpdateUserCash(u.UserName!, u.Cash);
+            }
         }
 
         private void EndGame(object? sender, EventArgs e)
@@ -431,7 +510,13 @@ namespace AtomicSokoHub
 
             RemoveDisconnectedUsers();
             UpdateUsersList();
-            Clients!.All.SendAsync("EndGame");
+            foreach (User u in users.Values)
+            {
+                if (u.IsConnected)
+                {
+                    u.Proxy!.SendAsync("EndGame");
+                }
+            }
         }
 
         private void ChangePlayerId()
@@ -460,6 +545,7 @@ namespace AtomicSokoHub
 
             return null;
         }
+
 
         //Console Methodes
 

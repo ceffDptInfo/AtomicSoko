@@ -13,6 +13,7 @@ namespace AtomicSokoHub
         public event EventHandler? Atomsetted;
         public event EventHandler? AtomExploded;
         public event EventHandler? AtomsDestroyed;
+        public event EventHandler? PowerUpUsed;
 
         private bool enemyCellsLeft = true;
         private Random rnd = new Random();
@@ -51,11 +52,48 @@ namespace AtomicSokoHub
             }
         }
 
+        public void CellThief(int x, int y, string id)
+        {
+            Cell cell = Cells[x, y];
+            if(!CheckIfCellBelongsToPlayer(x, y, id) && char.IsLower(cell.Value) && cell.Value != ' ' && CellThiefEnougnAtomsAnalyser(cell))
+            {
+                cell.Player = char.Parse(id.Remove(0, 1));
+                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                Atomsetted?.Invoke(this, EventArgs.Empty);
+                AtomExploded?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void WallDestroyer(int x, int y)
+        {
+            Cell cell = Cells[x, y];
+            if (cell.Value == 'B')
+            {
+                cell.Value = ' ';
+                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                Atomsetted?.Invoke(this, EventArgs.Empty);
+                AtomExploded?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void PlantNeutralNuke(int x, int y)
+        {
+            Cell cell = Cells[x, y];
+            if(cell.Value == ' ')
+            {
+                cell.Value = (char)('a' + (GetCriticalMass(x, y) - 2));
+                cell.Player = '0';
+                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                Atomsetted?.Invoke(this, EventArgs.Empty);
+                AtomExploded?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public bool CheckIfCellBelongsToPlayer(int x, int y, string currentPlayer)
         {
             bool isBelongingToPlayer = false;
 
-            if (currentPlayer == $"p{Cells[x, y].Player}" || Cells[x, y].Value == ' ')
+            if (currentPlayer == $"p{Cells[x, y].Player}" || Cells[x, y].Value == ' ' || Cells[x, y].Player == '0')
             {
                 isBelongingToPlayer = true;
             }
@@ -91,25 +129,47 @@ namespace AtomicSokoHub
             }
         }
 
+        private bool CellThiefEnougnAtomsAnalyser(Cell cell)
+        {
+            int atomsCount = 0;
+            foreach(Cell c in Cells)
+            {
+                if(c.Player == cell.Player)
+                {
+                    atomsCount++;
+                }
+            }
+
+            return atomsCount > 1;
+        }
+
         private void CheckSpecialCellPlacement()
         {
             for (int x = 0; x < Width; x++)
             {
-                for(int y = 0; y < Height; y++)
+                for (int y = 0; y < Height; y++)
                 {
-                    List<Cell> neighbors = GetNeighbors(x, y);
 
-                    int nbEmptyCells = 0;
+                    int nbWalls = 0;
 
-                    foreach(Cell neighbor in neighbors)
+                    for(int i = -1; i <= 1; i++)
                     {
-                        if(neighbor.Value == ' ')
+                        for(int j = -1; j <= 1; j++)
                         {
-                            nbEmptyCells++;
+                            int dx = j + x;
+                            int dy = i + y;
+
+                            if(dx >= 0 && dy >= 0 && dx < Width && dy < Height)
+                            {
+                                if (Cells[dx, dy].Value == 'B')
+                                {
+                                    nbWalls++;
+                                }
+                            }
                         }
                     }
 
-                    if(nbEmptyCells == 0)
+                    if(nbWalls > 2)
                     {
                         Cells[x, y].Value = ' ';
                     }

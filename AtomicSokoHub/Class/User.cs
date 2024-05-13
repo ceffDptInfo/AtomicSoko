@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using AtomicSokoLibrary;
+using Microsoft.AspNetCore.SignalR;
 using System.Drawing;
 
 namespace AtomicSokoHub
@@ -23,6 +24,8 @@ namespace AtomicSokoHub
         public string? Skin { get; set; }
         public bool Admin { get; set; } = false;
         public Int64 Cash { get; set; } = 0;
+        public PowerUps PowerUp { get; set; } = PowerUps.None;
+        public bool DoubleCash { get; set; } = false;
 
         public void EmptyUser()
         {
