@@ -13,9 +13,13 @@
     <None Remove="App.config" />
     <None Remove="assets\images\black_hole_image.png" />
     <None Remove="assets\images\black_hole_image_100x100.png" />
+    <None Remove="assets\images\CashDoubler.png" />
+    <None Remove="assets\images\CellThief.png" />
     <None Remove="assets\images\crate.jpg" />
     <None Remove="assets\images\icons\SoundOff.png" />
     <None Remove="assets\images\icons\SoundOn.png" />
+    <None Remove="assets\images\NeutralNuke.png" />
+    <None Remove="assets\images\None.png" />
     <None Remove="assets\images\skins\Amogus.png" />
     <None Remove="assets\images\skins\Arabio.png" />
     <None Remove="assets\images\skins\Athena.png" />
@@ -56,6 +60,7 @@
     <None Remove="assets\images\skins\Viking.png" />
     <None Remove="assets\images\skins\Visqueuse.png" />
     <None Remove="assets\images\wall.png" />
+    <None Remove="assets\images\WallDestroyer.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +73,12 @@
     <Content Include="assets\images\black_hole_image_100x100.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\images\CashDoubler.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\CellThief.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\images\crate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -75,6 +86,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\icons\SoundOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\NeutralNuke.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\None.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\skins\Amogus.png">
@@ -195,6 +212,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\images\wall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\images\WallDestroyer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
