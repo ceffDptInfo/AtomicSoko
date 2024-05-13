@@ -14,6 +14,9 @@ namespace AtomicSokoLibrary
         WallDestroyer,
         CashDoubler,
         NeutralNuke,
+        Topico,
+        ElJutos,
+        Angelica,
         None,
     }
 
