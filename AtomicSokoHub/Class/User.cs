@@ -25,7 +25,7 @@ namespace AtomicSokoHub
         public bool Admin { get; set; } = false;
         public Int64 Cash { get; set; } = 0;
         public PowerUps PowerUp { get; set; } = PowerUps.None;
-        public bool DoubleCash { get; set; } = false;
+        public int CashMultipliers { get; set; } = 1;
 
         public void EmptyUser()
         {
