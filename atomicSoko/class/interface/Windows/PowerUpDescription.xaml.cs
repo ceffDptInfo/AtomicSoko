@@ -37,6 +37,7 @@ namespace atomicSoko
             Description.Add(PowerUps.Angelica, "Protège votre ou la cellule cliqué pour 3 tour auquel rien ne peut la touché ni même le joueur");
             Description.Add(PowerUps.ElJutos, "Vous pouvez cliquer sur un trou noir qui fera apparaître vos cellules autour");
             Description.Add(PowerUps.Topico, "Vide toute les cases qui sont sur la bordure de la partie");
+            Description.Add(PowerUps.None, "Les informations sur les PowerUps s'afficheront ici, pour utiliser un powerUp il faut faire clique droit");
         }
     }
 }
