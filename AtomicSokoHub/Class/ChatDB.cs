@@ -30,5 +30,10 @@
         {
             NewMessage($"{userName} has left the Game!");
         }
+
+        public void PowerUpMsg(string userName, string powerUp)
+        {
+            NewMessage($"<{userName}> used <{powerUp}>!");
+        }
     }
 }
