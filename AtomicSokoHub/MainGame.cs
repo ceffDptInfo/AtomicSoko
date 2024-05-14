@@ -134,7 +134,7 @@ namespace AtomicSokoHub
                     {
                         user.State = UserState.InLife;
                         user.IsReady = false;
-                        user.DoubleCash = false;
+                        user.CashMultipliers = 1;
                     }
 
                     LaunchGame();
@@ -299,7 +299,7 @@ namespace AtomicSokoHub
 
         private void CashDoubler(string id)
         {
-            users[id].DoubleCash = true;
+            users[id].CashMultipliers++;
             PowerUpUsed("CashDoubler", EventArgs.Empty);
             SetAtoms(null, EventArgs.Empty);
         }
@@ -413,11 +413,8 @@ namespace AtomicSokoHub
             
             foreach(User user in users.Values)
             {
-                if(user.PowerUp == PowerUps.None)
-                {
-                    PowerUps p = powerUps[rnd.Next(powerUps.Count - 1)];
-                    user.PowerUp = p;
-                }
+                PowerUps p = powerUps[rnd.Next(powerUps.Count - 1)];
+                user.PowerUp = p;
             }
             UpdateUsersList();
         }
@@ -495,38 +492,19 @@ namespace AtomicSokoHub
         private void WinnerReward(string playerId)
         {
             int nbPlayer = 0;
-            List<User> hasCashDoubler = new List<User>();
             foreach(User user in users.Values)
             {
                 if(user.State == UserState.Dead || user.State == UserState.InLife)
                 {
                     nbPlayer++;
                 }
-
-                if(user.PowerUp == PowerUps.CashDoubler)
-                {
-                    hasCashDoubler.Add(user);
-                }
             }
 
             Int64 cash = rnd.Next((nbPlayer * 10) / 2, nbPlayer * 10);
 
-            if (users[playerId].DoubleCash)
-            {
-                users[playerId].Cash = cash * 2;
-            }
-            else
-            {
-                users[playerId].Cash = cash;
-            }
+            users[playerId].Cash = cash * users[playerId].CashMultipliers;
             
             Repository.Instance.UpdateUserCash(users[playerId].UserName!, users[playerId].Cash);
-
-            foreach (User u in hasCashDoubler)
-            {
-                u.Cash = cash;
-                Repository.Instance.UpdateUserCash(u.UserName!, u.Cash);
-            }
         }
 
         private void EndGame(object? sender, EventArgs e)
