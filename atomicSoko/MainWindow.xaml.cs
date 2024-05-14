@@ -189,6 +189,13 @@ namespace atomicSoko
                     Environment.Exit(0);
                 });
             });
+            connection!.On<int>("UpdateRound", (round) =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    LblRound.Content = $"{round} Round";
+                });
+            });
         }
 
         private void ParseUserDataList(List<UserData> userDatas)

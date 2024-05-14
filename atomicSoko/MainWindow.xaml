@@ -48,6 +48,7 @@
         <Button x:Name="BtnSoundOnOff" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="30" Margin="0, 0, 5, 0" Click="BtnSoundOnOffClick">
         </Button>
         <Image x:Name="PowerUpImage" HorizontalAlignment="Left" Margin="10,10,0,7" Width="44" MouseLeftButtonDown="PowerUpImage_MouseLeftButtonDown"/>
+        <Label x:Name="LblRound" Content="" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="249" Height="30" FontSize="18"/>
 
     </Grid>
 </Window>
