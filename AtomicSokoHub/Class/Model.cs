@@ -58,7 +58,7 @@ namespace AtomicSokoHub
             Cell cell = Cells[x, y];
             if(!CheckIfCellBelongsToPlayer(x, y, id) && char.IsLower(cell.Value) && cell.Value != ' ' && CellThiefEnougnAtomsAnalyser(cell))
             {
-                cell.Player = char.Parse(id.Remove(0, 1));
+                cell.Player = id.Remove(0, 1);
                 PowerUpUsed?.Invoke("CellThief", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
                 AtomExploded?.Invoke(this, EventArgs.Empty);
@@ -83,7 +83,7 @@ namespace AtomicSokoHub
             if(cell.Value == ' ')
             {
                 cell.Value = (char)('a' + (GetCriticalMass(x, y) - 2));
-                cell.Player = '0';
+                cell.Player = "0";
                 PowerUpUsed?.Invoke("NeutralNuke", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
                 AtomExploded?.Invoke(this, EventArgs.Empty);
@@ -131,7 +131,7 @@ namespace AtomicSokoHub
                 if(x == 0 || y == 0 || x == Width - 1 || y == Height - 1)
                 {
                     cell.Value = ' ';
-                    cell.Player = ' ';
+                    cell.Player = " ";
                     AtomExploded?.Invoke(this, EventArgs.Empty);
                 }
             }
@@ -144,7 +144,7 @@ namespace AtomicSokoHub
         {
             bool isBelongingToPlayer = false;
 
-            if (currentPlayer == $"p{Cells[x, y].Player}" || Cells[x, y].Value == ' ' || Cells[x, y].Player == '0')
+            if (currentPlayer == $"p{Cells[x, y].Player}" || Cells[x, y].Value == ' ' || Cells[x, y].Player == "0")
             {
                 isBelongingToPlayer = true;
             }
@@ -286,13 +286,7 @@ namespace AtomicSokoHub
                     Cells[x, y].Value = (char)(Cells[x, y].Value + 1);
                 }
 
-                int playerNumber = 0;
-
-                foreach (char c in currentPlayer)
-                {
-                    int.TryParse(c.ToString(), out playerNumber);
-                }
-                Cells[x, y].Player = char.Parse($"{playerNumber}");
+                Cells[x, y].Player = currentPlayer.Remove(0, 1);
             }
         }
 

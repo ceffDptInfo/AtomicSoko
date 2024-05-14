@@ -329,12 +329,11 @@ namespace AtomicSokoHub
                 List<string> keys = users.Keys.ToList();
 
                 int playerTurnAsInt = 0;
-                foreach (char c in currentPlayerId)
-                {
-                    int.TryParse(c.ToString(), out playerTurnAsInt);
-                }
-                
-                if(playerTurnAsInt >= keys.Count)
+                int.TryParse(currentPlayerId.Remove(0, 1), out playerTurnAsInt);
+
+
+
+                if (playerTurnAsInt >= keys.Count)
                 {
                     playerTurnAsInt = 0;
                     NewRoundProcess();
