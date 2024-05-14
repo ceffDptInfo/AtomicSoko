@@ -59,7 +59,7 @@ namespace AtomicSokoHub
             if(!CheckIfCellBelongsToPlayer(x, y, id) && char.IsLower(cell.Value) && cell.Value != ' ' && CellThiefEnougnAtomsAnalyser(cell))
             {
                 cell.Player = char.Parse(id.Remove(0, 1));
-                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                PowerUpUsed?.Invoke("CellThief", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
                 AtomExploded?.Invoke(this, EventArgs.Empty);
             }
@@ -71,7 +71,7 @@ namespace AtomicSokoHub
             if (cell.Value == 'B')
             {
                 cell.Value = ' ';
-                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                PowerUpUsed?.Invoke("WallDestroyer", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
                 AtomExploded?.Invoke(this, EventArgs.Empty);
             }
@@ -84,7 +84,7 @@ namespace AtomicSokoHub
             {
                 cell.Value = (char)('a' + (GetCriticalMass(x, y) - 2));
                 cell.Player = '0';
-                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                PowerUpUsed?.Invoke("NeutralNuke", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
                 AtomExploded?.Invoke(this, EventArgs.Empty);
             }
@@ -99,7 +99,7 @@ namespace AtomicSokoHub
                 cell.Buff = '#';
                 cell.Round = round;
                 angelicaCells.Add(cell);
-                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                PowerUpUsed?.Invoke("Angelica", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
                 AtomExploded?.Invoke(this, EventArgs.Empty);
             }
@@ -117,7 +117,7 @@ namespace AtomicSokoHub
                     AddAtomSetColor(neighbor.X, neighbor.Y, id);
                     AtomicAlgorithm(id);
                 }
-                PowerUpUsed?.Invoke(this, EventArgs.Empty);
+                PowerUpUsed?.Invoke("ElJutos", EventArgs.Empty);
                 Atomsetted?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -136,7 +136,7 @@ namespace AtomicSokoHub
                 }
             }
             TestIfAtomsleft();
-            PowerUpUsed?.Invoke(this, EventArgs.Empty);
+            PowerUpUsed?.Invoke("Topico", EventArgs.Empty);
             Atomsetted?.Invoke(this, EventArgs.Empty);
         }
 

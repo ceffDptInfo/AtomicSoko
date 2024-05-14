@@ -13,7 +13,7 @@ namespace AtomicSokoHub
         public int Height { get; set; } = 8;
         public bool GameIsRunning { get; set; } = false;
         public IHubCallerClients? Clients { get; set; }
-        public int Round { get; set; } = 0;
+        public int Round { get; set; } = 1;
 
         public static MainGame Instance = new MainGame();
         public Model? model;
@@ -300,7 +300,7 @@ namespace AtomicSokoHub
         private void CashDoubler(string id)
         {
             users[id].DoubleCash = true;
-            PowerUpUsed(null, EventArgs.Empty);
+            PowerUpUsed("CashDoubler", EventArgs.Empty);
             SetAtoms(null, EventArgs.Empty);
         }
 
@@ -359,6 +359,18 @@ namespace AtomicSokoHub
             }
             model!.AngelicaRoundTester(Round);
             RefreshAtoms(null, EventArgs.Empty);
+            UpdateRound();
+        }
+
+        private void UpdateRound()
+        {
+            foreach (User user in users.Values)
+            {
+                if (user.IsConnected)
+                {
+                    user.Proxy!.SendAsync("UpdateRound", Round);
+                }
+            }
         }
 
         private void LaunchGame()
@@ -370,13 +382,14 @@ namespace AtomicSokoHub
             model!.PowerUpUsed += PowerUpUsed;
 
             GameIsRunning = true;
-            Round = 0;
+            Round = 1;
             currentPlayerId = "p0";
 
             SetPowerUp();
 
             Clients!.All.SendAsync("GameInisialized");
             RefreshAtoms(null, EventArgs.Empty);
+            UpdateRound();
             ChangePlayerTurn();
             UpdateUsersList();
             SendUserTurn();
@@ -384,8 +397,14 @@ namespace AtomicSokoHub
 
         private void PowerUpUsed(object? sender, EventArgs e)
         {
-            users[currentPlayerId].PowerUp = PowerUps.None;
-            UpdateUsersList();
+            string? powerUp = sender as string;
+            if(powerUp != null)
+            {
+                users[currentPlayerId].PowerUp = PowerUps.None;
+                UpdateUsersList();
+                chatDB.PowerUpMsg(users[currentPlayerId].UserName!, powerUp);
+                UpdateChat(null, EventArgs.Empty);
+            }
         }
 
         private void SetPowerUp()
